@@ -1,0 +1,5 @@
+set host_triplet i386-unknown-freebsd8.2
+set target_alias i386-unknown-freebsd8.2
+set target_triplet i386-unknown-freebsd8.2
+set build_triplet i386-unknown-freebsd8.2
+set srcdir .

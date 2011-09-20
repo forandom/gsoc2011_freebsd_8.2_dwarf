@@ -1,0 +1,48 @@
+set testfile logbl
+set srcfile ${testfile}.c
+set binfile ${objdir}/${subdir}/${testfile}
+if  { [gdb_compile "${srcdir}/${subdir}/${srcfile}" "${binfile}" executable {debug, -lm}] != "" } {
+    untested "Couldn't compile test program"
+    return -1
+}
+
+gdb_exit
+gdb_start
+gdb_reinitialize_dir $srcdir/$subdir
+gdb_load ${binfile}
+
+gdb_test "break *${testfile}" \
+"Breakpoint.*at.*" \
+"breakpoint at first instruction of ${testfile}"
+
+gdb_run_cmd
+gdb_expect {
+    -re ".*Breakpoint.*${testfile}.*$gdb_prompt $"  {
+	pass "run to ${testfile}()"
+    }
+    -re ".*$gdb_prompt $" {
+	fail "run to ${testfile}()"
+	return -1
+    }
+    timeout {
+        fail "run to ${testfile}() (timeout)"
+        return -1
+    }
+}
+
+gdb_test "stepi" \
+         ".*" \
+         "step first instruction"
+
+gdb_test "bt" \
+         "#0 +(0x\[0-9a-z\]+ in )?${testfile} .*(0x\[0-9a-z\]* in )?main.*" \
+         "backtrace after first instruction step"
+
+gdb_test "stepi" \
+         ".*" \
+         "step second instruction"
+
+gdb_test "bt" \
+         "#0 +(0x\[0-9a-z\]+ in )?${testfile} .*(0x\[0-9a-z\]* in )?main.*" \
+         "backtrace after second instruction step"
+

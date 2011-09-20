@@ -1,0 +1,1610 @@
+Index: lib/msun/i387/s_truncf.S
+===================================================================
+--- lib/msun/i387/s_truncf.S	(版本 222392)
++++ lib/msun/i387/s_truncf.S	(版本 225556)
+@@ -8,7 +8,10 @@
+ 
+ ENTRY(truncf)
+ 	pushl	%ebp
++	cfi_adjust_cfa_offset(4)
++	cfi_rel_offset(%ebp, 0)
+ 	movl	%esp,%ebp
++	cfi_def_cfa_register(%ebp)
+ 	subl	$8,%esp
+ 
+ 	fstcw	-4(%ebp)		/* store fpu control word */
+@@ -23,6 +26,7 @@
+ 	fldcw	-4(%ebp)		/* restore original control word */
+ 
+ 	leave
++	cfi_def_cfa(%esp, 0)
+ 	ret
+ END(truncf)
+ 
+Index: lib/msun/i387/s_llrint.S
+===================================================================
+--- lib/msun/i387/s_llrint.S	(版本 222392)
++++ lib/msun/i387/s_llrint.S	(版本 225556)
+@@ -30,9 +30,12 @@
+ ENTRY(llrint)
+ 	fldl	4(%esp)
+ 	subl	$8,%esp
++	cfi_adjust_cfa_offset(8)
+ 	fistpll	(%esp)
+ 	popl	%eax
++	cfi_adjust_cfa_offset(-4)
+ 	popl	%edx
++	cfi_adjust_cfa_offset(-4)
+ 	ret
+ END(llrint)
+ 
+Index: lib/msun/i387/e_remainderl.S
+===================================================================
+--- lib/msun/i387/e_remainderl.S	(版本 222392)
++++ lib/msun/i387/e_remainderl.S	(版本 225556)
+@@ -46,5 +46,6 @@
+ 	jp	1b
+ 	fstp	%st(1)
+ 	ret
++END(remainderl)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/msun/i387/s_truncl.S
+===================================================================
+--- lib/msun/i387/s_truncl.S	(版本 222392)
++++ lib/msun/i387/s_truncl.S	(版本 225556)
+@@ -8,7 +8,10 @@
+ 
+ ENTRY(truncl)
+ 	pushl	%ebp
++	cfi_adjust_cfa_offset(4)
++	cfi_rel_offset(%ebp, 0)
+ 	movl	%esp,%ebp
++	cfi_def_cfa_register(%ebp)
+ 	subl	$8,%esp
+ 
+ 	fstcw	-4(%ebp)		/* store fpu control word */
+@@ -23,6 +26,7 @@
+ 	fldcw	-4(%ebp)		/* restore original control word */
+ 
+ 	leave
++	cfi_def_cfa(%esp, 0)
+ 	ret
+ END(truncl)
+ 
+Index: lib/msun/i387/s_llrintf.S
+===================================================================
+--- lib/msun/i387/s_llrintf.S	(版本 222392)
++++ lib/msun/i387/s_llrintf.S	(版本 225556)
+@@ -30,9 +30,12 @@
+ ENTRY(llrintf)
+ 	flds	4(%esp)
+ 	subl	$8,%esp
++	cfi_adjust_cfa_offset(8)
+ 	fistpll	(%esp)
+ 	popl	%eax
++	cfi_adjust_cfa_offset(-4)
+ 	popl	%edx
++	cfi_adjust_cfa_offset(-4)
+ 	ret
+ END(llrintf)
+ 
+Index: lib/msun/i387/s_ceil.S
+===================================================================
+--- lib/msun/i387/s_ceil.S	(版本 222392)
++++ lib/msun/i387/s_ceil.S	(版本 225556)
+@@ -38,7 +38,10 @@
+ 
+ ENTRY(ceil)
+ 	pushl	%ebp
++	cfi_adjust_cfa_offset(4)
++	cfi_rel_offset(%ebp,0)
+ 	movl	%esp,%ebp
++	cfi_def_cfa_register(%ebp)
+ 	subl	$8,%esp
+ 
+ 	fstcw	-4(%ebp)		/* store fpu control word */
+@@ -54,6 +57,7 @@
+ 	fldcw	-4(%ebp)		/* restore original control word */
+ 
+ 	leave
++	cfi_def_cfa(%esp, 0)
+ 	ret
+ END(ceil)
+ 
+Index: lib/msun/i387/s_llrintl.S
+===================================================================
+--- lib/msun/i387/s_llrintl.S	(版本 222392)
++++ lib/msun/i387/s_llrintl.S	(版本 225556)
+@@ -30,9 +30,13 @@
+ ENTRY(llrintl)
+ 	fldt	4(%esp)
+ 	subl	$8,%esp
++	cfi_adjust_cfa_offset(8)
+ 	fistpll	(%esp)
+ 	popl	%eax
++	cfi_adjust_cfa_offset(-4)
+ 	popl	%edx
++	cfi_adjust_cfa_offset(-4)
+ 	ret
++END(llrintl)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/msun/i387/s_ceilf.S
+===================================================================
+--- lib/msun/i387/s_ceilf.S	(版本 222392)
++++ lib/msun/i387/s_ceilf.S	(版本 225556)
+@@ -10,7 +10,10 @@
+ 
+ ENTRY(ceilf)
+ 	pushl	%ebp
++	cfi_adjust_cfa_offset(4)
++	cfi_rel_offset(%ebp, 0)
+ 	movl	%esp,%ebp
++	cfi_def_cfa_register(%ebp)
+ 	subl	$8,%esp
+ 
+ 	fstcw	-4(%ebp)		/* store fpu control word */
+@@ -26,6 +29,7 @@
+ 	fldcw	-4(%ebp)		/* restore original control word */
+ 
+ 	leave
++	cfi_def_cfa(%esp, 0)
+ 	ret
+ END(ceilf)
+ 
+Index: lib/msun/i387/s_remquol.S
+===================================================================
+--- lib/msun/i387/s_remquol.S	(版本 222392)
++++ lib/msun/i387/s_remquol.S	(版本 225556)
+@@ -61,5 +61,6 @@
+ 	movl	28(%esp),%ecx
+ 	movl	%eax,(%ecx)
+ 	ret
++END(remquol)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/msun/i387/s_floorf.S
+===================================================================
+--- lib/msun/i387/s_floorf.S	(版本 222392)
++++ lib/msun/i387/s_floorf.S	(版本 225556)
+@@ -10,7 +10,10 @@
+ 
+ ENTRY(floorf)
+ 	pushl	%ebp
++	cfi_adjust_cfa_offset(4)
++	cfi_rel_offset(%ebp, 0)
+ 	movl	%esp,%ebp
++	cfi_def_cfa_register(%ebp)
+ 	subl	$8,%esp
+ 
+ 	fstcw	-4(%ebp)		/* store fpu control word */
+@@ -26,6 +29,7 @@
+ 	fldcw	-4(%ebp)		/* restore original control word */
+ 
+ 	leave
++	cfi_def_cfa(%esp, 0)
+ 	ret
+ END(floorf)
+ 
+Index: lib/msun/i387/s_lrint.S
+===================================================================
+--- lib/msun/i387/s_lrint.S	(版本 222392)
++++ lib/msun/i387/s_lrint.S	(版本 225556)
+@@ -30,8 +30,10 @@
+ ENTRY(lrint)
+ 	fldl	4(%esp)
+ 	subl	$4,%esp
++	cfi_adjust_cfa_offset(4)
+ 	fistpl	(%esp)
+ 	popl	%eax
++	cfi_adjust_cfa_offset(-4)
+ 	ret
+ END(lrint)
+ 
+Index: lib/msun/i387/s_ceill.S
+===================================================================
+--- lib/msun/i387/s_ceill.S	(版本 222392)
++++ lib/msun/i387/s_ceill.S	(版本 225556)
+@@ -8,7 +8,10 @@
+ 
+ ENTRY(ceill)
+ 	pushl	%ebp
++	cfi_adjust_cfa_offset(4)
++	cfi_rel_offset(%ebp, 0)
+ 	movl	%esp,%ebp
++	cfi_def_cfa_register(%ebp)
+ 	subl	$8,%esp
+ 
+ 	fstcw	-4(%ebp)		/* store fpu control word */
+@@ -24,6 +27,7 @@
+ 	fldcw	-4(%ebp)		/* restore original control word */
+ 
+ 	leave
++	cfi_def_cfa(%esp, 0)
+ 	ret
+ END(ceill)
+ 
+Index: lib/msun/i387/s_trunc.S
+===================================================================
+--- lib/msun/i387/s_trunc.S	(版本 222392)
++++ lib/msun/i387/s_trunc.S	(版本 225556)
+@@ -8,7 +8,10 @@
+ 
+ ENTRY(trunc)
+ 	pushl	%ebp
++	cfi_adjust_cfa_offset(4)
++	cfi_rel_offset(%ebp, 0)
+ 	movl	%esp,%ebp
++	cfi_def_cfa_register(%ebp)
+ 	subl	$8,%esp
+ 
+ 	fstcw	-4(%ebp)		/* store fpu control word */
+@@ -23,6 +26,7 @@
+ 	fldcw	-4(%ebp)		/* restore original control word */
+ 
+ 	leave
++	cfi_def_cfa(%esp, 0)
+ 	ret
+ END(trunc)
+ 
+Index: lib/msun/i387/s_floorl.S
+===================================================================
+--- lib/msun/i387/s_floorl.S	(版本 222392)
++++ lib/msun/i387/s_floorl.S	(版本 225556)
+@@ -8,7 +8,10 @@
+ 
+ ENTRY(floorl)
+ 	pushl	%ebp
++	cfi_adjust_cfa_offset(4)
++	cfi_rel_offset(%ebp, 0)
+ 	movl	%esp,%ebp
++	cfi_def_cfa_register(%ebp)
+ 	subl	$8,%esp
+ 
+ 	fstcw	-4(%ebp)		/* store fpu control word */
+@@ -24,6 +27,7 @@
+ 	fldcw	-4(%ebp)		/* restore original control word */
+ 
+ 	leave
++	cfi_def_cfa(%esp, 0)
+ 	ret
+ END(floorl)
+ 
+Index: lib/msun/i387/s_lrintf.S
+===================================================================
+--- lib/msun/i387/s_lrintf.S	(版本 222392)
++++ lib/msun/i387/s_lrintf.S	(版本 225556)
+@@ -30,8 +30,10 @@
+ ENTRY(lrintf)
+ 	flds	4(%esp)
+ 	subl	$4,%esp
++	cfi_adjust_cfa_offset(4)
+ 	fistpl	(%esp)
+ 	popl	%eax
++	cfi_adjust_cfa_offset(-4)
+ 	ret
+ END(lrintf)
+ 
+Index: lib/msun/i387/s_logbl.S
+===================================================================
+--- lib/msun/i387/s_logbl.S	(版本 222392)
++++ lib/msun/i387/s_logbl.S	(版本 225556)
+@@ -41,5 +41,6 @@
+ 	fxtract
+ 	fstp	%st
+ 	ret
++END(logbl)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/msun/i387/s_lrintl.S
+===================================================================
+--- lib/msun/i387/s_lrintl.S	(版本 222392)
++++ lib/msun/i387/s_lrintl.S	(版本 225556)
+@@ -30,8 +30,11 @@
+ ENTRY(lrintl)
+ 	fldt	4(%esp)
+ 	subl	$4,%esp
++	cfi_adjust_cfa_offset(4)
+ 	fistpl	(%esp)
+ 	popl	%eax
++	cfi_adjust_cfa_offset(-4)
+ 	ret
++END(lrintl)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/msun/i387/e_logf.S
+===================================================================
+--- lib/msun/i387/e_logf.S	(版本 222392)
++++ lib/msun/i387/e_logf.S	(版本 225556)
+@@ -13,5 +13,6 @@
+ 	flds	4(%esp)
+ 	fyl2x
+ 	ret
++END(logf)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/msun/i387/s_floor.S
+===================================================================
+--- lib/msun/i387/s_floor.S	(版本 222392)
++++ lib/msun/i387/s_floor.S	(版本 225556)
+@@ -38,7 +38,10 @@
+ 
+ ENTRY(floor)
+ 	pushl	%ebp
++	cfi_adjust_cfa_offset(4)
++	cfi_rel_offset(%ebp, 0)
+ 	movl	%esp,%ebp
++	cfi_def_cfa_register(%ebp)
+ 	subl	$8,%esp
+ 
+ 	fstcw	-4(%ebp)		/* store fpu control word */
+@@ -54,6 +57,7 @@
+ 	fldcw	-4(%ebp)		/* restore original control word */
+ 
+ 	leave
++	cfi_def_cfa(%esp, 0)
+ 	ret
+ END(floor)
+ 
+Index: lib/msun/i387/e_sqrtl.S
+===================================================================
+--- lib/msun/i387/e_sqrtl.S	(版本 222392)
++++ lib/msun/i387/e_sqrtl.S	(版本 225556)
+@@ -40,5 +40,6 @@
+ 	fldt	4(%esp)
+ 	fsqrt
+ 	ret
++END(sqrtl)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/msun/i387/s_rintl.S
+===================================================================
+--- lib/msun/i387/s_rintl.S	(版本 222392)
++++ lib/msun/i387/s_rintl.S	(版本 225556)
+@@ -40,5 +40,6 @@
+ 	fldt	4(%esp)
+ 	frndint
+ 	ret
++END(rintl)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/msun/amd64/e_remainderf.S
+===================================================================
+--- lib/msun/amd64/e_remainderf.S	(版本 222392)
++++ lib/msun/amd64/e_remainderf.S	(版本 225556)
+@@ -21,5 +21,6 @@
+ 	movss	-4(%rsp),%xmm0
+ 	fstp	%st
+ 	ret
++END(remainderf)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/msun/amd64/s_logbl.S
+===================================================================
+--- lib/msun/amd64/s_logbl.S	(版本 222392)
++++ lib/msun/amd64/s_logbl.S	(版本 225556)
+@@ -41,5 +41,6 @@
+ 	fxtract
+ 	fstp	%st
+ 	ret
++END(logbl)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/msun/amd64/s_lrintl.S
+===================================================================
+--- lib/msun/amd64/s_lrintl.S	(版本 222392)
++++ lib/msun/amd64/s_lrintl.S	(版本 225556)
+@@ -30,8 +30,11 @@
+ ENTRY(lrintl)
+ 	fldt	8(%rsp)
+ 	subq	$8,%rsp
++	cfi_adjust_cfa_offset(8)
+ 	fistpll	(%rsp)
+ 	popq	%rax
++	cfi_adjust_cfa_offset(-8)
+ 	ret
++END(lrintl)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/msun/amd64/e_remainderl.S
+===================================================================
+--- lib/msun/amd64/e_remainderl.S	(版本 222392)
++++ lib/msun/amd64/e_remainderl.S	(版本 225556)
+@@ -46,5 +46,6 @@
+ 	jne	1b
+ 	fstp	%st(1)
+ 	ret
++END(remainderl)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/msun/amd64/s_llrintl.S
+===================================================================
+--- lib/msun/amd64/s_llrintl.S	(版本 222392)
++++ lib/msun/amd64/s_llrintl.S	(版本 225556)
+@@ -30,8 +30,11 @@
+ ENTRY(llrintl)
+ 	fldt	8(%rsp)
+ 	subq	$8,%rsp
++	cfi_adjust_cfa_offset(8)
+ 	fistpll	(%rsp)
+ 	popq	%rax
++	cfi_adjust_cfa_offset(-8)
+ 	ret
++END(llrintl)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/msun/amd64/s_remquol.S
+===================================================================
+--- lib/msun/amd64/s_remquol.S	(版本 222392)
++++ lib/msun/amd64/s_remquol.S	(版本 225556)
+@@ -60,5 +60,6 @@
+ /* Store the quotient and return. */
+ 	movl	%eax,(%rdi)
+ 	ret
++END(remquol)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/msun/amd64/e_sqrtl.S
+===================================================================
+--- lib/msun/amd64/e_sqrtl.S	(版本 222392)
++++ lib/msun/amd64/e_sqrtl.S	(版本 225556)
+@@ -31,5 +31,6 @@
+ 	fldt	8(%rsp)
+ 	fsqrt
+ 	ret
++END(sqrtl)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/msun/amd64/e_remainder.S
+===================================================================
+--- lib/msun/amd64/e_remainder.S	(版本 222392)
++++ lib/msun/amd64/e_remainder.S	(版本 225556)
+@@ -51,5 +51,6 @@
+ 	movsd	-8(%rsp),%xmm0
+ 	fstp	%st
+ 	ret
++END(remainder)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/msun/amd64/s_rintl.S
+===================================================================
+--- lib/msun/amd64/s_rintl.S	(版本 222392)
++++ lib/msun/amd64/s_rintl.S	(版本 225556)
+@@ -41,5 +41,6 @@
+ 	fldt	8(%rsp)
+ 	frndint
+ 	ret
++END(rintl)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/libc/i386/string/memcmp.S
+===================================================================
+--- lib/libc/i386/string/memcmp.S	(版本 222392)
++++ lib/libc/i386/string/memcmp.S	(版本 225556)
+@@ -40,9 +40,13 @@
+ 
+ ENTRY(memcmp)
+ 	pushl	%edi
++	cfi_adjust_cfa_offset(4)
+ 	pushl	%esi
++	cfi_adjust_cfa_offset(4)
+ 	movl	12(%esp),%edi
++	cfi_rel_offset(%edi, 4)
+ 	movl	16(%esp),%esi
++	cfi_rel_offset(%esi, 0)
+ 	cld				/* set compare direction forward */
+ 
+ 	movl	20(%esp),%ecx		/* compare by words */
+@@ -59,7 +63,11 @@
+ 
+ 	xorl	%eax,%eax		/* we match, return zero	*/
+ 	popl	%esi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%esi)
+ 	popl	%edi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%edi)
+ 	ret
+ 
+ L5:	movl	$4,%ecx			/* We know that one of the next	*/
+@@ -71,7 +79,11 @@
+         movzbl  -1(%esi),%edx
+         subl    %edx,%eax
+ 	popl	%esi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%esi)
+ 	popl	%edi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%edi)
+ 	ret
+ END(memcmp)
+ 
+Index: lib/libc/i386/string/bcmp.S
+===================================================================
+--- lib/libc/i386/string/bcmp.S	(版本 222392)
++++ lib/libc/i386/string/bcmp.S	(版本 225556)
+@@ -40,9 +40,13 @@
+ 
+ ENTRY(bcmp)
+ 	pushl	%edi
++	cfi_adjust_cfa_offset(4)
+ 	pushl	%esi
++	cfi_adjust_cfa_offset(4)
+ 	movl	12(%esp),%edi
++	cfi_rel_offset(%edi, 4)
+ 	movl	16(%esp),%esi
++	cfi_rel_offset(%esi, 0)
+ 	cld				/* set compare direction forward */
+ 
+ 	movl	20(%esp),%ecx		/* compare by words */
+@@ -59,7 +63,11 @@
+ 	setne	%al
+ 	movsbl	%al,%eax
+ 	popl	%esi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%esi)
+ 	popl	%edi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%edi)
+ 	ret
+ END(bcmp)
+ 
+Index: lib/libc/i386/string/bzero.S
+===================================================================
+--- lib/libc/i386/string/bzero.S	(版本 222392)
++++ lib/libc/i386/string/bzero.S	(版本 225556)
+@@ -41,8 +41,11 @@
+ 
+ ENTRY(bzero)
+ 	pushl	%edi
++	cfi_adjust_cfa_offset(4)
+ 	pushl	%ebx
++	cfi_adjust_cfa_offset(4)
+ 	movl	12(%esp),%edi
++	cfi_rel_offset(%edi, 4)
+ 	movl	16(%esp),%ecx
+ 
+ 	cld				/* set fill direction forward */
+@@ -60,6 +63,7 @@
+ 	negl	%edx
+ 	andl	$3,%edx
+ 	movl	%ecx,%ebx
++	cfi_rel_offset(%ebx, 0)
+ 	subl	%edx,%ebx
+ 
+ 	movl	%edx,%ecx		/* zero until word aligned */
+@@ -77,7 +81,11 @@
+ 	stosb
+ 
+ 	popl	%ebx
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%ebx)
+ 	popl	%edi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%edi)
+ 	ret
+ END(bzero)
+ 
+Index: lib/libc/i386/string/strcpy.S
+===================================================================
+--- lib/libc/i386/string/strcpy.S	(版本 222392)
++++ lib/libc/i386/string/strcpy.S	(版本 225556)
+@@ -49,6 +49,7 @@
+ 	movl	4(%esp),%ecx		/* dst address */
+ 	movl	8(%esp),%edx		/* src address */
+ 	pushl	%ecx			/* push dst address */
++	cfi_adjust_cfa_offset(4)
+ 
+ 	.align 2,0x90
+ L1:	movb	(%edx),%al		/* unroll loop, but not too much */
+@@ -86,6 +87,7 @@
+ 	testb	%al,%al
+ 	jne	L1
+ L2:	popl	%eax			/* pop dst address */
++	cfi_adjust_cfa_offset(-4)
+ 	ret
+ END(strcpy)
+ 
+Index: lib/libc/i386/string/strncmp.S
+===================================================================
+--- lib/libc/i386/string/strncmp.S	(版本 222392)
++++ lib/libc/i386/string/strncmp.S	(版本 225556)
+@@ -55,6 +55,8 @@
+ 
+ ENTRY(strncmp)
+ 	pushl	%ebx
++	cfi_adjust_cfa_offset(4)
++	cfi_rel_offset(%ebx, 0)
+ 	movl	8(%esp),%eax
+ 	movl	12(%esp),%ecx
+ 	movl	16(%esp),%edx
+@@ -159,10 +161,14 @@
+ 	movzbl	(%ecx),%ecx
+ 	subl	%ecx,%eax
+ 	popl	%ebx
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%ebx)
+ 	ret
+ 	.align 2,0x90
+ L4:	xorl	%eax,%eax
+ 	popl	%ebx
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%ebx)
+ 	ret
+ END(strncmp)
+ 
+Index: lib/libc/i386/string/strrchr.S
+===================================================================
+--- lib/libc/i386/string/strrchr.S	(版本 222392)
++++ lib/libc/i386/string/strrchr.S	(版本 225556)
+@@ -47,6 +47,8 @@
+ 
+ ENTRY(strrchr)
+ 	pushl	%ebx
++	cfi_adjust_cfa_offset(4)
++	cfi_rel_offset(%ebx, 0)
+ 	movl	8(%esp),%edx
+ 	movb	12(%esp),%cl
+ 	xorl	%eax,%eax		/* init pointer to null */
+@@ -61,6 +63,8 @@
+ 	testb	%bl,%bl			/* null terminator??? */
+ 	jne	L1
+ 	popl	%ebx
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%ebx)
+ 	ret
+ END(strrchr)
+ 
+Index: lib/libc/i386/string/wcschr.S
+===================================================================
+--- lib/libc/i386/string/wcschr.S	(版本 222392)
++++ lib/libc/i386/string/wcschr.S	(版本 225556)
+@@ -37,6 +37,8 @@
+ 	movl	4(%esp),%ecx		/* String */
+ 	movl	8(%esp),%eax		/* Character */
+ 	pushl	%ebx
++	cfi_adjust_cfa_offset(4)
++	cfi_rel_offset(%ebx, 0)
+ .p2align 4,0x90
+ L1:	movl	(%ecx),%ebx
+ 	cmpl	%eax,%ebx
+@@ -68,10 +70,14 @@
+ found1:	leal	4(%ecx),%ecx
+ .p2align 2,0x90
+ found0: popl	%ebx
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%ebx)
+ 	movl	%ecx,%eax
+ 	ret
+ .p2align 2,0x90
+ no:	popl	%ebx
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%ebx)
+ 	xorl	%eax,%eax
+ 	ret
+ END(wcschr)
+Index: lib/libc/i386/string/rindex.S
+===================================================================
+--- lib/libc/i386/string/rindex.S	(版本 222392)
++++ lib/libc/i386/string/rindex.S	(版本 225556)
+@@ -47,6 +47,8 @@
+  
+ ENTRY(rindex)
+ 	pushl	%ebx
++	cfi_adjust_cfa_offset(4)
++	cfi_rel_offset(%ebx, 0)
+ 	movl	8(%esp),%edx
+ 	movb	12(%esp),%cl
+ 	xorl	%eax,%eax		/* init pointer to null */
+@@ -61,6 +63,8 @@
+ 	testb	%bl,%bl			/* null terminator??? */
+ 	jne	L1
+ 	popl	%ebx
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%ebx)
+ 	ret
+ END(rindex)
+ 
+Index: lib/libc/i386/string/memset.S
+===================================================================
+--- lib/libc/i386/string/memset.S	(版本 222392)
++++ lib/libc/i386/string/memset.S	(版本 225556)
+@@ -42,11 +42,16 @@
+ 
+ ENTRY(memset)
+ 	pushl	%edi
++	cfi_adjust_cfa_offset(4)
++	cfi_rel_offset(%edi, 0)
+ 	pushl	%ebx
++	cfi_adjust_cfa_offset(4)
++	cfi_rel_offset(%ebx, 0)
+ 	movl	12(%esp),%edi
+ 	movzbl	16(%esp),%eax		/* unsigned char, zero extend */
+ 	movl	20(%esp),%ecx
+ 	pushl	%edi			/* push address of buffer */
++	cfi_adjust_cfa_offset(4)
+ 
+ 	cld				/* set fill direction forward */
+ 
+@@ -84,8 +89,13 @@
+ 	stosb
+ 
+ 	popl	%eax			/* pop address of buffer */
++	cfi_adjust_cfa_offset(-4)
+ 	popl	%ebx
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%ebx)
+ 	popl	%edi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%edi)
+ 	ret
+ END(memset)
+ 
+Index: lib/libc/i386/string/wcslen.S
+===================================================================
+--- lib/libc/i386/string/wcslen.S	(版本 222392)
++++ lib/libc/i386/string/wcslen.S	(版本 225556)
+@@ -35,7 +35,9 @@
+ ENTRY(wcslen)
+ 	movl	4(%esp),%ecx		/* String */
+ 	pushl	%ebx
++	cfi_adjust_cfa_offset(4)
+ 	xorl	%ebx,%ebx
++	cfi_rel_offset(%ebx, 0)
+ 	xorl	%eax,%eax
+ .p2align 4,0x90
+ L1:	cmpl	%ebx,(%ecx)
+@@ -65,6 +67,8 @@
+ found2:	incl	%eax
+ found1:	incl	%eax
+ found0:	popl	%ebx
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%ebx)
+ 	ret
+ END(wcslen)
+ 
+Index: lib/libc/i386/string/wcscmp.S
+===================================================================
+--- lib/libc/i386/string/wcscmp.S	(版本 222392)
++++ lib/libc/i386/string/wcscmp.S	(版本 225556)
+@@ -35,9 +35,13 @@
+  */
+ ENTRY(wcscmp)
+ 	pushl	%edi
++	cfi_adjust_cfa_offset(4)
+ 	pushl	%esi
++	cfi_adjust_cfa_offset(4)
+ 	movl	12(%esp),%edi		/* s1 */
++	cfi_rel_offset(%edi, 4)
+ 	movl	16(%esp),%esi		/* s2 */
++	cfi_rel_offset(%edi, 0)
+ .p2align 4,0x90
+ top:	movl	(%edi),%eax
+ 	cmpl	%eax,(%esi)
+@@ -64,7 +68,11 @@
+ .p2align 2,0x90
+ same:	xorl	%eax,%eax
+ 	popl	%esi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%esi)
+ 	popl	%edi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%edi)
+ 	ret
+ .p2align 2,0x90
+ no12:	leal	4(%esi),%esi
+@@ -75,7 +83,11 @@
+ .p2align 2,0x90
+ no0:	subl	(%esi),%eax
+ 	popl	%esi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%esi)
+ 	popl	%edi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%edi)
+ 	ret
+ END(wcscmp)
+ 
+Index: lib/libc/i386/string/swab.S
+===================================================================
+--- lib/libc/i386/string/swab.S	(版本 222392)
++++ lib/libc/i386/string/swab.S	(版本 225556)
+@@ -46,9 +46,13 @@
+ 
+ ENTRY(swab)
+ 	pushl	%esi
++	cfi_adjust_cfa_offset(4)
+ 	pushl	%edi
++	cfi_adjust_cfa_offset(4)
+ 	movl	12(%esp),%esi
++	cfi_rel_offset(%esi, 4)
+ 	movl	16(%esp),%edi
++	cfi_rel_offset(%edi, 0)
+ 	movl	20(%esp),%ecx
+ 
+ 	cld				# set direction forward
+@@ -95,7 +99,11 @@
+ 	jnz	L3
+ 
+ L4:	popl	%edi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%edi)
+ 	popl	%esi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%esi)
+ 	ret
+ END(swab)
+ 
+Index: lib/libc/i386/string/strcat.S
+===================================================================
+--- lib/libc/i386/string/strcat.S	(版本 222392)
++++ lib/libc/i386/string/strcat.S	(版本 225556)
+@@ -48,9 +48,12 @@
+ 
+ ENTRY(strcat)
+ 	pushl	%edi			/* save edi */
++	cfi_adjust_cfa_offset(4)
+ 	movl	8(%esp),%edi		/* dst address */
++	cfi_rel_offset(%edi, 0)
+ 	movl	12(%esp),%edx		/* src address */
+ 	pushl	%edi			/* push destination address */
++	cfi_adjust_cfa_offset(4)
+ 
+ 	cld				/* set search forward */
+ 	xorl	%eax,%eax		/* set search for null terminator */
+@@ -96,7 +99,10 @@
+ 	testb	%al,%al
+ 	jne	L1
+ L2:	popl	%eax			/* pop destination address */
++	cfi_adjust_cfa_offset(-4)
+ 	popl	%edi			/* restore edi */
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%edi)
+ 	ret
+ END(strcat)
+ 
+Index: lib/libc/i386/string/wmemchr.S
+===================================================================
+--- lib/libc/i386/string/wmemchr.S	(版本 222392)
++++ lib/libc/i386/string/wmemchr.S	(版本 225556)
+@@ -36,8 +36,11 @@
+  */
+ ENTRY(wmemchr)
+ 	pushl	%edi
++	cfi_adjust_cfa_offset(4)
+ 	pushl	%ebx
++	cfi_adjust_cfa_offset(4)
+ 	movl	12(%esp),%edi		/* Buffer */
++	cfi_rel_offset(%edi, 4)
+ 	movl	16(%esp),%eax		/* Wide character */
+ 	movl	20(%esp),%ecx		/* Length of buffer */
+ 
+@@ -45,6 +48,7 @@
+ 	 * Search in chunks of 8 wide characters (32 bytes).
+ 	 */
+ 	movl	%ecx,%ebx
++	cfi_rel_offset(%ebx, 0)
+ 	shrl	$3,%ecx
+ 	jz	small
+ .p2align 4,0x90
+@@ -70,7 +74,11 @@
+ 	jmp	small
+ found:	movl	%edi,%eax
+ 	popl	%ebx
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%ebx)
+ 	popl	%edi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%edi)
+ 	ret
+ found4:	leal	4(%edi),%edi
+ 	jmp	found
+@@ -101,7 +109,11 @@
+ 	jnz	smltop
+ no:	xorl	%eax,%eax
+ 	popl	%ebx
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%ebx)
+ 	popl	%edi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%edi)
+ 	ret
+ END(wmemchr)
+ 
+Index: lib/libc/i386/string/strchr.S
+===================================================================
+--- lib/libc/i386/string/strchr.S	(版本 222392)
++++ lib/libc/i386/string/strchr.S	(版本 225556)
+@@ -47,6 +47,7 @@
+ 
+ ENTRY(strchr)
+ 	pushl	%ebx
++	cfi_adjust_cfa_offset(4)
+ 	movl	8(%esp),%eax
+ 	movb	12(%esp),%cl
+ 	.align 2,0x90
+@@ -60,6 +61,8 @@
+ 	xorl	%eax,%eax
+ L2:
+ 	popl	%ebx
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%ebx)
+ 	ret
+ END(strchr)
+ 
+Index: lib/libc/i386/string/index.S
+===================================================================
+--- lib/libc/i386/string/index.S	(版本 222392)
++++ lib/libc/i386/string/index.S	(版本 225556)
+@@ -47,6 +47,8 @@
+ 
+ ENTRY(index)
+ 	pushl	%ebx
++	cfi_adjust_cfa_offset(4)
++	cfi_rel_offset(%ebx, 0)
+ 	movl	8(%esp),%eax
+ 	movb	12(%esp),%cl
+ 	.align 2,0x90
+@@ -60,6 +62,8 @@
+ 	xorl	%eax,%eax
+ L2:
+ 	popl	%ebx
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%ebx)
+ 	ret
+ END(index)
+ 
+Index: lib/libc/i386/string/memchr.S
+===================================================================
+--- lib/libc/i386/string/memchr.S	(版本 222392)
++++ lib/libc/i386/string/memchr.S	(版本 225556)
+@@ -41,7 +41,9 @@
+ 
+ ENTRY(memchr)
+ 	pushl	%edi
++	cfi_adjust_cfa_offset(4)
+ 	movl	8(%esp),%edi		/* string address */
++	cfi_rel_offset(%edi, 0)
+ 	movl	12(%esp),%eax		/* set character to search for */
+ 	movl	16(%esp),%ecx		/* set length of search */
+ 	testl	%esp,%esp		/* clear Z flag, for len == 0 */
+@@ -55,6 +57,8 @@
+ 	.align 2,0x90
+ L1:	xorl	%eax,%eax
+ 	popl	%edi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%edi)
+ 	ret
+ END(memchr)
+ 
+Index: lib/libc/i386/string/bcopy.S
+===================================================================
+--- lib/libc/i386/string/bcopy.S	(版本 222392)
++++ lib/libc/i386/string/bcopy.S	(版本 225556)
+@@ -51,14 +51,20 @@
+ #endif
+ #endif
+ 	pushl	%esi
++	cfi_adjust_cfa_offset(4)
+ 	pushl	%edi
++	cfi_adjust_cfa_offset(4)
+ #if defined(MEMCOPY) || defined(MEMMOVE)
+ 	movl	12(%esp),%edi
++	cfi_rel_offset(%edi, 0)
+ 	movl	16(%esp),%esi
++	cfi_rel_offset(%esi, 4)
+ 	movl	%edi,%eax
+ #else
+ 	movl	12(%esp),%esi
++	cfi_rel_offset(%edi, 0)
+ 	movl	16(%esp),%edi
++	cfi_rel_offset(%esi, 4)
+ #endif
+ 	movl	20(%esp),%ecx
+ 	movl	%edi,%edx
+@@ -75,7 +81,11 @@
+ 	rep
+ 	movsb
+ 	popl	%edi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%edi)
+ 	popl	%esi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%esi)
+ 	ret
+ 1:
+ 	addl	%ecx,%edi	/* copy backwards. */
+@@ -94,7 +104,11 @@
+ 	rep
+ 	movsl
+ 	popl	%edi
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%edi)
+ 	popl	%esi
++	cfi_restore(%esi)
++	cfi_adjust_cfa_offset(-4)
+ 	cld
+ 	ret
+ #ifdef MEMCOPY
+Index: lib/libc/i386/gen/modf.S
+===================================================================
+--- lib/libc/i386/gen/modf.S	(版本 222392)
++++ lib/libc/i386/gen/modf.S	(版本 225556)
+@@ -48,7 +48,10 @@
+ 
+ ENTRY(modf)
+ 	pushl %ebp
++	cfi_adjust_cfa_offset(4)
+ 	movl %esp,%ebp
++	cfi_rel_offset(%ebp, 0)
++	cfi_def_cfa_register(%ebp) 
+ 	/* Check for Inf/NaN */
+ 	movl 12(%ebp),%eax
+ 	andl $0x7fffffff,%eax
+@@ -73,6 +76,7 @@
+ 	fldl 8(%ebp)
+ 	fsubl -8(%ebp)
+ 	leave
++	cfi_def_cfa(%esp, 0)
+ 	ret
+ 	/* Inf/NaN handling */
+ 1:	fldl 8(%ebp)
+@@ -81,6 +85,7 @@
+ 	fldz
+ 	fdivp	/* return +/- 0 for +/- Inf, NaN for NaN */
+ 	leave
++	cfi_def_cfa(%esp, 0)
+ 	ret
+ END(modf)
+ 
+Index: lib/libc/i386/sys/setlogin.S
+===================================================================
+--- lib/libc/i386/sys/setlogin.S	(版本 222392)
++++ lib/libc/i386/sys/setlogin.S	(版本 225556)
+@@ -44,9 +44,13 @@
+ #ifdef PIC
+ 	PIC_PROLOGUE
+ 	pushl	%eax
++	cfi_adjust_cfa_offset(4)
++	cfi_rel_offset(%eax, 0)
+ 	movl	PIC_GOT(CNAME(_logname_valid)),%eax
+ 	movl	$0,(%eax)
+ 	popl	%eax
++	cfi_adjust_cfa_offset(-4)
++	cfi_restore(%eax)
+ 	PIC_EPILOGUE
+ #else
+ 	movl	$0,CNAME(_logname_valid)
+Index: lib/libc/i386/sys/cerror.S
+===================================================================
+--- lib/libc/i386/sys/cerror.S	(版本 222392)
++++ lib/libc/i386/sys/cerror.S	(版本 225556)
+@@ -48,19 +48,24 @@
+ 	.globl	CNAME(__error)
+ 	.type	CNAME(__error),@function
+ HIDENAME(cerror):
++	cfi_startproc
+ 	pushl	%eax
++	cfi_adjust_cfa_offset(4)
+ #ifdef PIC
+ 	/* The caller must execute the PIC prologue before jumping to cerror. */
+ 	call	PIC_PLT(CNAME(__error))
+ 	popl	%ecx
++	cfi_adjust_cfa_offset(-4)
+ 	PIC_EPILOGUE
+ #else
+ 	call	CNAME(__error)
+ 	popl	%ecx
++	cfi_adjust_cfa_offset(-4)
+ #endif
+ 	movl	%ecx,(%eax)
+ 	movl	$-1,%eax
+ 	movl	$-1,%edx
+ 	ret
++	cfi_endproc
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/libc/i386/sys/exect.S
+===================================================================
+--- lib/libc/i386/sys/exect.S	(版本 222392)
++++ lib/libc/i386/sys/exect.S	(版本 225556)
+@@ -42,10 +42,14 @@
+ ENTRY(exect)
+ 	mov	$SYS_execve,%eax
+ 	pushf
++	cfi_adjust_cfa_offset(4)
+ 	popl	%edx
++	cfi_adjust_cfa_offset(-4)
+ 	orl	$ PSL_T,%edx
+ 	pushl	%edx
++	cfi_adjust_cfa_offset(4)
+ 	popf
++	cfi_adjust_cfa_offset(-4)
+ 	KERNCALL
+ 	PIC_PROLOGUE
+ 	jmp	PIC_PLT(HIDENAME(cerror))	/* exect(file, argv, env); */
+Index: lib/libc/amd64/gen/_setjmp.S
+===================================================================
+--- lib/libc/amd64/gen/_setjmp.S	(版本 222392)
++++ lib/libc/amd64/gen/_setjmp.S	(版本 225556)
+@@ -48,6 +48,7 @@
+ 
+ ENTRY(_setjmp)
+ 	movq	%rdi,%rax
++	cfi_register(%rdi, %rax)
+ 	movq	0(%rsp),%rdx		/* retval */
+ 	movq	%rdx, 0(%rax)		/* 0; retval */
+ 	movq	%rbx, 8(%rax)		/* 1; rbx */
+@@ -67,6 +68,7 @@
+ 	.set	CNAME(_longjmp),CNAME(___longjmp)
+ ENTRY(___longjmp)
+ 	movq	%rdi,%rdx
++	cfi_register(%rdi, %rdx)
+ 	/* Restore the mxcsr, but leave exception flags intact. */
+ 	stmxcsr	-4(%rsp)
+ 	movl	68(%rdx),%eax
+@@ -77,6 +79,7 @@
+ 	movl	%edi,-4(%rsp)
+ 	ldmxcsr -4(%rsp)
+ 	movq	%rsi,%rax		/* retval */
++	cfi_register(%rsi, %rax)
+ 	movq	0(%rdx),%rcx
+ 	movq	8(%rdx),%rbx
+ 	movq	16(%rdx),%rsp
+Index: lib/libc/amd64/gen/setjmp.S
+===================================================================
+--- lib/libc/amd64/gen/setjmp.S	(版本 222392)
++++ lib/libc/amd64/gen/setjmp.S	(版本 225556)
+@@ -50,13 +50,19 @@
+ 
+ ENTRY(setjmp)
+ 	pushq	%rdi
++	cfi_adjust_cfa_offset(8)
++	cfi_rel_offset(%rdi, 0)
+ 	movq	%rdi,%rcx
++	cfi_register(%rdi, %rcx)
+ 	movq	$1,%rdi			/* SIG_BLOCK       */
+ 	movq	$0,%rsi			/* (sigset_t*)set  */
+ 	leaq	72(%rcx),%rdx		/* 9,10; (sigset_t*)oset */
+ 	call	PIC_PLT(CNAME(_sigprocmask))
+ 	popq	%rdi
++	cfi_adjust_cfa_offset(-8)
++	cfi_restore(%rdi)
+ 	movq	%rdi,%rcx
++	cfi_register(%rdi, %rcx)
+ 	movq	0(%rsp),%rdx		/* retval */
+ 	movq	%rdx, 0(%rcx)		/* 0; retval */
+ 	movq	%rbx, 8(%rcx)		/* 1; rbx */
+@@ -76,14 +82,18 @@
+ 	.set CNAME(longjmp),CNAME(__longjmp)
+ ENTRY(__longjmp)
+ 	pushq	%rdi
++	cfi_adjust_cfa_offset(8)
+ 	pushq	%rsi
++	cfi_adjust_cfa_offset(8)
+ 	movq	%rdi,%rdx
+ 	movq	$3,%rdi			/* SIG_SETMASK     */
+ 	leaq	72(%rdx),%rsi		/* (sigset_t*)set  */
+ 	movq	$0,%rdx			/* (sigset_t*)oset */
+ 	call	PIC_PLT(CNAME(_sigprocmask))
+ 	popq	%rsi
++	cfi_adjust_cfa_offset(-8)
+ 	popq	%rdi			/* jmpbuf */
++	cfi_adjust_cfa_offset(-8)
+ 	movq	%rdi,%rdx
+ 	/* Restore the mxcsr, but leave exception flags intact. */
+ 	stmxcsr	-4(%rsp)
+Index: lib/libc/amd64/gen/sigsetjmp.S
+===================================================================
+--- lib/libc/amd64/gen/sigsetjmp.S	(版本 222392)
++++ lib/libc/amd64/gen/sigsetjmp.S	(版本 225556)
+@@ -58,13 +58,19 @@
+ 	testl	%esi,%esi
+ 	jz	2f
+ 	pushq	%rdi
++	cfi_adjust_cfa_offset(8)
++	cfi_rel_offset(%rdi, 0)
+ 	movq	%rdi,%rcx
++	cfi_register(%rdi, %rcx)
+ 	movq	$1,%rdi			/* SIG_BLOCK       */
+ 	movq	$0,%rsi			/* (sigset_t*)set  */
+ 	leaq	72(%rcx),%rdx		/* 9,10 (sigset_t*)oset */
+ 	call	PIC_PLT(CNAME(_sigprocmask))
+ 	popq	%rdi
++	cfi_adjust_cfa_offset(-8)
++	cfi_restore(%rdi)
+ 2:	movq	%rdi,%rcx
++	cfi_register(%rdi, %rcx)
+ 	movq	0(%rsp),%rdx		/* retval */
+ 	movq	%rdx, 0(%rcx)		/* 0; retval */
+ 	movq	%rbx, 8(%rcx)		/* 1; rbx */
+@@ -85,16 +91,27 @@
+ 	cmpl	$0,88(%rdi)
+ 	jz	2f
+ 	movq	%rdi,%rdx
++	cfi_register(%rdi, %rdx)
+ 	pushq	%rdi
++	cfi_adjust_cfa_offset(8)
++	cfi_rel_offset(%rdi, 0)
+ 	pushq	%rsi
++	cfi_adjust_cfa_offset(8)
++	cfi_rel_offset(%rsi, 0)
+ 	movq	$3,%rdi			/* SIG_SETMASK     */
+ 	leaq	72(%rdx),%rsi		/* (sigset_t*)set  */
+ 	movq	$0,%rdx			/* (sigset_t*)oset */
+ 	call	PIC_PLT(CNAME(_sigprocmask))
+ 	popq	%rsi
++	cfi_adjust_cfa_offset(-8)
++	cfi_restore(%rsi)
+ 	popq	%rdi			/* jmpbuf */
++	cfi_adjust_cfa_offset(-8)
++	cfi_restore(%rdi)
+ 2:	movq	%rdi,%rdx
++	cfi_register(%rdi, %rdx)
+ 	movq	%rsi,%rax		/* retval */
++	cfi_register(%rsi, %rax)
+ 	movq	0(%rdx),%rcx
+ 	movq	8(%rdx),%rbx
+ 	movq	16(%rdx),%rsp
+Index: lib/libc/amd64/gen/rfork_thread.S
+===================================================================
+--- lib/libc/amd64/gen/rfork_thread.S	(版本 222392)
++++ lib/libc/amd64/gen/rfork_thread.S	(版本 225556)
+@@ -46,9 +46,15 @@
+ 
+ ENTRY(rfork_thread)
+ 	pushq	%rbx
++	cfi_adjust_cfa_offset(8)
++	cfi_rel_offset(%rbx, 0)
+ 	pushq	%r12
++	cfi_adjust_cfa_offset(8)
++	cfi_rel_offset(%r12, 0)
+ 	movq	%rdx, %rbx
++	cfi_register(%rdx, %rbx)
+ 	movq	%rcx, %r12
++	cfi_register(%rcx, %r12)
+ 
+ 	/*
+ 	 * Prepare and execute the thread creation syscall
+@@ -63,7 +69,11 @@
+ 	cmpl	$0, %edx
+ 	jnz	1f
+ 	popq	%r12
++	cfi_adjust_cfa_offset(-8)
++	cfi_restore(%r12)
+ 	popq	%rbx
++	cfi_adjust_cfa_offset(-8)
++	cfi_restore(%rbx)
+ 	ret
+ 
+ 	/*
+@@ -73,7 +83,9 @@
+ 	 */
+ 1:
+ 	movq	%rsi, %rsp
++	cfi_register(%rsi, %rsp)
+ 	movq	%r12, %rdi 
++	cfi_register(%r12, %rdi)
+ 	call	*%rbx
+ 	movl	%eax, %edi
+ 
+@@ -92,7 +104,11 @@
+ 	 */
+ 2:
+ 	popq	%r12
++	cfi_adjust_cfa_offset(-8)
++	cfi_restore(%r12)
+ 	popq	%rbx
++	cfi_adjust_cfa_offset(-8)
++	cfi_restore(%rbx)
+ #ifdef PIC
+ 	movq	PIC_GOT(HIDENAME(cerror)), %rdx
+ 	jmp	*%rdx
+Index: lib/libc/amd64/sys/brk.S
+===================================================================
+--- lib/libc/amd64/sys/brk.S	(版本 222392)
++++ lib/libc/amd64/sys/brk.S	(版本 225556)
+@@ -42,12 +42,15 @@
+ 	.globl	HIDENAME(minbrk)
+ ENTRY(_brk)
+ 	pushq	%rdi
++	cfi_adjust_cfa_offset(8)
+ 	jmp	ok
+ END(_brk)
+ 
+ ENTRY(brk)
+ 	pushq	%rdi
++	cfi_adjust_cfa_offset(8)
+ 	movq	%rdi,%rax
++	cfi_register(%rdi, %rax)
+ #ifdef PIC
+ 	movq	PIC_GOT(HIDENAME(minbrk)),%rdx
+ 	cmpq	%rax,(%rdx)
+@@ -73,9 +76,11 @@
+ #endif
+ 	movq	$0,%rax
+ 	popq	%rdi
++	cfi_restore(%rdi)
+ 	ret
+ err:
+ 	addq	$8, %rsp
++	cfi_adjust_cfa_offset(-8)
+ #ifdef PIC
+ 	movq	PIC_GOT(HIDENAME(cerror)),%rdx
+ 	jmp	*%rdx
+Index: lib/libc/amd64/sys/getcontext.S
+===================================================================
+--- lib/libc/amd64/sys/getcontext.S	(版本 222392)
++++ lib/libc/amd64/sys/getcontext.S	(版本 225556)
+@@ -44,6 +44,7 @@
+ 	KERNCALL
+ 	jb	1f
+ 	addq	$8,%rsp		/* remove stale (setcontext) return address */
++	cfi_adjust_cfa_offset(-8)
+ 	jmp	*%rsi		/* restore return address */
+ 1:
+ #ifdef PIC
+Index: lib/libc/amd64/sys/vfork.S
+===================================================================
+--- lib/libc/amd64/sys/vfork.S	(版本 222392)
++++ lib/libc/amd64/sys/vfork.S	(版本 225556)
+@@ -44,12 +44,14 @@
+ 	.set	vfork,__sys_vfork
+ ENTRY(__sys_vfork)
+ 	popq	%rsi		/* fetch return address (%rsi preserved) */
++	cfi_adjust_cfa_offset(-8)
+ 	mov	$SYS_vfork,%rax
+ 	KERNCALL
+ 	jb	1f
+ 	jmp	*%rsi
+ 1:
+ 	pushq	%rsi
++	cfi_adjust_cfa_offset(8)
+ #ifdef PIC
+ 	movq	PIC_GOT(HIDENAME(cerror)),%rdx
+ 	jmp	*%rdx
+Index: lib/libc/amd64/sys/cerror.S
+===================================================================
+--- lib/libc/amd64/sys/cerror.S	(版本 222392)
++++ lib/libc/amd64/sys/cerror.S	(版本 225556)
+@@ -48,12 +48,16 @@
+ 	.globl	CNAME(__error)
+ 	.type	CNAME(__error),@function
+ HIDENAME(cerror):
++	cfi_startproc
+ 	pushq	%rax
++	cfi_adjust_cfa_offset(8)
+ 	call	PIC_PLT(CNAME(__error))
+ 	popq	%rcx
++	cfi_adjust_cfa_offset(-8)
+ 	movl	%ecx,(%rax)
+ 	movq	$-1,%rax
+ 	movq	$-1,%rdx
+ 	ret
++	cfi_endproc
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/libc/amd64/sys/sbrk.S
+===================================================================
+--- lib/libc/amd64/sys/sbrk.S	(版本 222392)
++++ lib/libc/amd64/sys/sbrk.S	(版本 225556)
+@@ -49,7 +49,9 @@
+ 
+ ENTRY(sbrk)
+ 	pushq	%rdi
++	cfi_adjust_cfa_offset(8)
+ 	movq	%rdi,%rcx
++	cfi_register(%rdi, %rcx)
+ #ifdef PIC
+ 	movq	PIC_GOT(HIDENAME(curbrk)),%rdx
+ 	movq	(%rdx),%rax
+@@ -76,9 +78,11 @@
+ #endif
+ back:
+ 	addq	$8, %rsp
++	cfi_adjust_cfa_offset(-8)
+ 	ret
+ err:
+ 	addq	$8, %rsp
++	cfi_adjust_cfa_offset(-8)
+ #ifdef PIC
+ 	movq	PIC_GOT(HIDENAME(cerror)),%rdx
+ 	jmp	*%rdx
+Index: lib/libc/amd64/sys/exect.S
+===================================================================
+--- lib/libc/amd64/sys/exect.S	(版本 222392)
++++ lib/libc/amd64/sys/exect.S	(版本 225556)
+@@ -42,10 +42,14 @@
+ ENTRY(exect)
+ 	movq	$SYS_execve,%rax
+ 	pushfq
++	cfi_adjust_cfa_offset(8)
+ 	popq	%r8
++	cfi_adjust_cfa_offset(-8)
+ 	orq	$PSL_T,%r8
+ 	pushq	%r8
++	cfi_adjust_cfa_offset(8)
+ 	popfq
++	cfi_adjust_cfa_offset(-8)
+ 	KERNCALL
+ #ifdef PIC
+ 	movq	PIC_GOT(HIDENAME(cerror)),%rdx
+Index: lib/libthr/arch/i386/i386/_umtx_op_err.S
+===================================================================
+--- lib/libthr/arch/i386/i386/_umtx_op_err.S	(版本 222392)
++++ lib/libthr/arch/i386/i386/_umtx_op_err.S	(版本 225556)
+@@ -31,7 +31,8 @@
+ 
+ #define SYSCALL_ERR(x)		 			\
+ 			ENTRY(__CONCAT(x, _err));	\
+-			mov __CONCAT($SYS_,x),%eax; int $0x80; ret
++			mov __CONCAT($SYS_,x),%eax; int $0x80; ret; \
++			END(__CONCAT(x, _err));	
+ 
+ SYSCALL_ERR(_umtx_op)
+ 
+Index: lib/libthr/arch/amd64/amd64/_umtx_op_err.S
+===================================================================
+--- lib/libthr/arch/amd64/amd64/_umtx_op_err.S	(版本 222392)
++++ lib/libthr/arch/amd64/amd64/_umtx_op_err.S	(版本 225556)
+@@ -32,8 +32,9 @@
+ #define	RSYSCALL_ERR(x)	ENTRY(__CONCAT(x, _err));		\
+ 			mov __CONCAT($SYS_,x),%rax; KERNCALL; ret; 
+ 
+-#define KERNCALL	movq %rcx, %r10; syscall
++#define KERNCALL	movq %rcx, %r10; cfi_register(%rcx, %r10); syscall
+ 
+ RSYSCALL_ERR(_umtx_op)
++END(_umtx_op)
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: lib/csu/i386-elf/crt1_s.S
+===================================================================
+--- lib/csu/i386-elf/crt1_s.S	(版本 222392)
++++ lib/csu/i386-elf/crt1_s.S	(版本 225556)
+@@ -33,13 +33,13 @@
+ 	.globl	_start
+ 	.type	_start, @function
+ _start:
+-	.cfi_startproc
++	cfi_startproc
+ 	xorl	%ebp,%ebp
+ 	pushl	%ebp
+-	.cfi_def_cfa_offset 4
++	cfi_def_cfa_offset(4)
+ 	movl	%esp,%ebp
+-	.cfi_offset %ebp,-8
+-	.cfi_def_cfa_register %ebp
++	cfi_offset(%ebp,-8)
++	cfi_def_cfa_register(%ebp)
+ 	andl	$0xfffffff0,%esp # align stack
+ 	leal	8(%ebp),%eax
+ 	subl	$4,%esp
+@@ -48,7 +48,7 @@
+ 	pushl	%edx		# rtld cleanup
+ 	call	_start1
+ 	int3
+-	.cfi_endproc
++	cfi_endproc
+ 	.size	_start, . - _start
+ 
+ 	.section .note.GNU-stack,"",%progbits
+Index: sys/i386/include/asm.h
+===================================================================
+--- sys/i386/include/asm.h	(版本 222392)
++++ sys/i386/include/asm.h	(版本 225556)
+@@ -46,7 +46,7 @@
+ 	popl	%ebx;	\
+ 	addl	$_GLOBAL_OFFSET_TABLE_+[.-1b],%ebx
+ #define	PIC_EPILOGUE	\
+-	popl	%ebx
++	popl	%ebx	
+ #define	PIC_PLT(x)	x@PLT
+ #define	PIC_GOT(x)	x@GOT(%ebx)
+ #else
+@@ -70,19 +70,29 @@
+ #define _START_ENTRY	.text; .p2align 2,0x90
+ 
+ #define _ENTRY(x)	_START_ENTRY; \
+-			.globl CNAME(x); .type CNAME(x),@function; CNAME(x):
+-#define	END(x)		.size x, . - x
++			.globl CNAME(x); .type CNAME(x),@function; CNAME(x):; \
++			cfi_startproc;
++#define	END(x)		cfi_endproc; \
++			.size x, . - x
+ 
+ #ifdef PROF
+ #define	ALTENTRY(x)	_ENTRY(x); \
+-			pushl %ebp; movl %esp,%ebp; \
++			pushl %ebp; \
++			cfi_adjust_cfa_offset(4); \
++			movl %esp,%ebp; \
++			cfi_def_cfa_register(%ebp); \
+ 			call PIC_PLT(HIDENAME(mcount)); \
+ 			popl %ebp; \
++			cfi_def_cfa(%esp,4); \
+ 			jmp 9f
+ #define	ENTRY(x)	_ENTRY(x); \
+-			pushl %ebp; movl %esp,%ebp; \
++			pushl %ebp; \
++			cfi_adjust_cfa_offset(4); \
++			movl %esp,%ebp; \
++			cfi_def_cfa_register(%ebp); \
+ 			call PIC_PLT(HIDENAME(mcount)); \
+ 			popl %ebp; \
++			cfi_def_cfa(%esp,4); \
+ 			9:
+ #else
+ #define	ALTENTRY(x)	_ENTRY(x)
+Index: sys/amd64/include/asm.h
+===================================================================
+--- sys/amd64/include/asm.h	(版本 222392)
++++ sys/amd64/include/asm.h	(版本 225556)
+@@ -59,25 +59,35 @@
+ #define _START_ENTRY	.text; .p2align 4,0x90
+ 
+ #define _ENTRY(x)	_START_ENTRY; \
+-			.globl CNAME(x); .type CNAME(x),@function; CNAME(x):
++			.globl CNAME(x); .type CNAME(x),@function; CNAME(x):; \
++			cfi_startproc;
+ 
+ #ifdef PROF
+ #define	ALTENTRY(x)	_ENTRY(x); \
+-			pushq %rbp; movq %rsp,%rbp; \
++			pushq %rbp;\
++			cfi_adjust_cfa_offset(8); \
++			movq %rsp,%rbp; \
++			cfi_def_cfa_register(%rbp); \
+ 			call PIC_PLT(HIDENAME(mcount)); \
+ 			popq %rbp; \
++			cfi_def_cfa(%rsp,4); \
+ 			jmp 9f
+ #define	ENTRY(x)	_ENTRY(x); \
+-			pushq %rbp; movq %rsp,%rbp; \
++			pushq %rbp; \
++			cfi_adjust_cfa_offset(8); \
++			movq %rsp,%rbp; \
++			cfi_def_cfa_register(%rbp); \
+ 			call PIC_PLT(HIDENAME(mcount)); \
+ 			popq %rbp; \
++			cfi_def_cfa(%rsp,4); \
+ 			9:
+ #else
+ #define	ALTENTRY(x)	_ENTRY(x)
+ #define	ENTRY(x)	_ENTRY(x)
+ #endif
+ 
+-#define	END(x)		.size x, . - x
++#define	END(x)		cfi_endproc; \
++			.size x, . - x
+ 
+ #define RCSID(x)	.text; .asciz x
+ 
+Index: sys/sys/cdefs.h
+===================================================================
+--- sys/sys/cdefs.h	(版本 222392)
++++ sys/sys/cdefs.h	(版本 225556)
+@@ -574,4 +574,22 @@
+ #endif
+ #endif
+ 
++/* Macros to generate eh_frame unwind information. */
++#  define cfi_startproc			.cfi_startproc
++#  define cfi_endproc			.cfi_endproc
++#  define cfi_def_cfa(reg, off)		.cfi_def_cfa reg, off
++#  define cfi_def_cfa_register(reg)	.cfi_def_cfa_register reg
++#  define cfi_def_cfa_offset(off)	.cfi_def_cfa_offset off
++#  define cfi_adjust_cfa_offset(off)	.cfi_adjust_cfa_offset off
++#  define cfi_offset(reg, off)		.cfi_offset reg, off
++#  define cfi_rel_offset(reg, off)	.cfi_rel_offset reg, off
++#  define cfi_register(r1, r2)		.cfi_register r1, r2
++#  define cfi_return_column(reg)	.cfi_return_column reg
++#  define cfi_restore(reg)		.cfi_restore reg
++#  define cfi_same_value(reg)		.cfi_same_value reg
++#  define cfi_undefined(reg)		.cfi_undefined reg
++#  define cfi_remember_state		.cfi_remember_state
++#  define cfi_restore_state		.cfi_restore_state
++#  define cfi_window_save		.cfi_window_save
++
+ #endif /* !_SYS_CDEFS_H_ */

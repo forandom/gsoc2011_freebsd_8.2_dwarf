@@ -1,0 +1,173 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config
+END
+default.exp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/default.exp
+END
+mips-idt.exp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/mips-idt.exp
+END
+rom68k.exp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/rom68k.exp
+END
+monitor.exp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/monitor.exp
+END
+i960.exp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/i960.exp
+END
+proelf.exp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/proelf.exp
+END
+sim.exp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/sim.exp
+END
+cfdbug.exp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/cfdbug.exp
+END
+cygmon.exp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/cygmon.exp
+END
+vr5000.exp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/vr5000.exp
+END
+vx.exp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/vx.exp
+END
+m32r-stub.exp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/m32r-stub.exp
+END
+vr4300.exp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/vr4300.exp
+END
+i386-bozo.exp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/i386-bozo.exp
+END
+h8300.exp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/h8300.exp
+END
+mips.exp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/mips.exp
+END
+vxworks29k.exp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/vxworks29k.exp
+END
+d10v.exp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/d10v.exp
+END
+sh.exp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/sh.exp
+END
+arm-ice.exp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/arm-ice.exp
+END
+dve.exp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/dve.exp
+END
+sid.exp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/sid.exp
+END
+slite.exp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/slite.exp
+END
+mn10300-eval.exp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/mn10300-eval.exp
+END
+m32r.exp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/m32r.exp
+END
+gdbserver.exp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/gdbserver.exp
+END
+unix.exp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/unix.exp
+END
+vxworks.exp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/socsvn/!svn/ver/225286/soc2011/xxp/test/config/vxworks.exp
+END

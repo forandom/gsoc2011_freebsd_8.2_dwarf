@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/socsvn/!svn/ver/225286/soc2011/xxp/test
+END
+site.exp
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/socsvn/!svn/ver/225286/soc2011/xxp/test/site.exp
+END
+clean.sh
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/socsvn/!svn/ver/225286/soc2011/xxp/test/clean.sh
+END
+run_test.sh
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/socsvn/!svn/ver/225286/soc2011/xxp/test/run_test.sh
+END

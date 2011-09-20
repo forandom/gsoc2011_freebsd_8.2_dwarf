@@ -1,0 +1,6 @@
+#created by Pan Xingxing
+ 
+EXECUTABLES="bcmp bcopy bzero ceil ceilf ceill copysign copysignf copysignl cos exp ffs finite floor floorf floorl fmod index llrint llrintf log log10 log10f logb logbf logbl logf lrint lrintf lrintl memchr memcmp memcpy memmove memset remainder remainderf remquo remquof remquol rindex rint rintf rintl scalbn scalbnf scalbnl significand significandf sin sqrt sqrtf sqrtl strcat strchr strcmp strncmp swab tan trunc truncf truncl wcschr wcscmp wcslen wmemchr"
+
+cd testscripts
+rm -f $EXECUTABLES
